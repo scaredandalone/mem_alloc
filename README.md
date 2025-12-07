@@ -16,10 +16,18 @@ Block splitting is supported so that allocations do not take up more space than 
 
 There is also basic safety such as double-free detection and 16-byte alignment.  
 
+### Usage
 
+Call `allocate_mem(size)` to allocate memory and `free_mem(ptr)` to free it, just like `malloc` and `free`.
 
+Example:
 
+```cpp
+void* ptr = allocate_mem(256);  // allocate 256 bytes
+free_mem(ptr);                 // free the memory
+```
 
+All tests and example usage are inside `main()`. The program will print the heap and free list after each operation so you can see how the allocator behaves.  
 
 
 #### SWITCH TO MASTER BRANCH TO VIEW THE SOURCE!
