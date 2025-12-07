@@ -1,14 +1,23 @@
 ### Memory Allocator Interpretation
 
-This is my memory allocator interpretation, based off the contents of "Operating Systems 3 Easy Pieces", in particular the section dedicated to Memory APIs. 
+This is my memory allocator interpretation, based on the Memory APIs section of Operating Systems: Three Easy Pieces (malloc).  
 
-Implements a singly linked list to track all allocations and free segments within the heap. 
+It implements a singly linked list to track all allocations and free segments within the heap.  
 
-Utilises Windows system calls, ( VirtualAlloc() ) to request additional memory from the operating system when needed. 
+It uses the Windows system call VirtualAlloc() to request additional memory from the operating system when needed.  
 
-Appends a struct to memory segments (header block) in order to track the size of the segment, and the locations (ptr) of the next segment. 
+A header block (struct) is appended to every memory segment to store the size of the segment, whether it is free or not, and a pointer to the next segment.  
 
-Includes a next_free ptr within each free block (if the block isnt free, next_free is NULL). 
+Each free block also contains a next_free pointer so that all free blocks can be tracked separately in a free list.  
+
+Free blocks are coalesced both forwards and backwards to form larger free segments and reduce fragmentation.  
+
+Block splitting is supported so that allocations do not take up more space than required.  
+
+There is also basic safety such as double-free detection and 16-byte alignment.  
+
+
+
 
 
 
